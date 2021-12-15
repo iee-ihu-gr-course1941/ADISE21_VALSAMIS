@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `board`;
 CREATE TABLE `board` (
   `x` tinyint(1) NOT NULL,
   `y` tinyint(1) NOT NULL,
-  `piece` int(12) DEFAULT NULL,
+  `piece` int(11) DEFAULT NULL,
   PRIMARY KEY (`x`,`y`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS `board_empty`;
 CREATE TABLE `board_empty` (
   `x` tinyint(1) NOT NULL,
   `y` tinyint(1) NOT NULL,
-  `piece` int(12) DEFAULT NULL,
+  `piece` int(11) DEFAULT NULL,
   PRIMARY KEY (`x`,`y`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS `game_status`;
 CREATE TABLE `game_status` (
   `status` enum('not active','initialized','started','ended','aborded') NOT NULL DEFAULT 'not active',
   `p_turn` varchar(100) DEFAULT NULL,
-  `current_piece` int(12) DEFAULT NULL,
+  `current_piece` int(11) DEFAULT NULL,
   `result` varchar(1) DEFAULT NULL,
   `win_combination` varchar(20) DEFAULT NULL,
   `last_change` timestamp NULL DEFAULT NULL
@@ -88,7 +88,7 @@ CREATE TABLE `game_status` (
 
 LOCK TABLES `game_status` WRITE;
 /*!40000 ALTER TABLE `game_status` DISABLE KEYS */;
-INSERT INTO `game_status` VALUES ('not active',NULL,NULL,NULL,'not set','2021-12-08 23:14:06');
+INSERT INTO `game_status` VALUES ('not active',NULL,NULL,NULL,'not set','2021-12-08 23:14:07');
 /*!40000 ALTER TABLE `game_status` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -233,37 +233,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `move_piece` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `move_piece`(x1 tinyint,y1 tinyint,x2 tinyint,y2 tinyint)
-BEGIN
-	declare  p, p_color char;
-	
-	select  piece, piece_color into p, p_color FROM `board` WHERE X=x1 AND Y=y1;
-	
-	update board
-	set piece=p, piece_color=p_color
-	where x=x2 and y=y2;
-	
-	UPDATE board
-	SET piece=null,piece_color=null
-	WHERE X=x1 AND Y=y1;
-	update game_status set p_turn=if(p_color='W','B','W');
-	
-    END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `place_piece` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -324,29 +293,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `test_move` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `test_move`()
-BEGIN
-SELECT * FROM
-board B1 INNER JOIN board B2
-WHERE B1.x=2 AND B1.y=2
-AND (B2.`piece_color` IS NULL OR B2.`piece_color`<>B1.`piece_color`)
-AND B1.x=B2.x AND B1.y<B2.y AND (B2.y-B1.y)<=2 ;
-    END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -357,4 +303,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-15 23:00:18
+-- Dump completed on 2021-12-15 23:17:21
