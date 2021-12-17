@@ -1,9 +1,9 @@
 <?php
 
-require_once "lib/dbconnect.php";
-require_once "lib/users.php";
-require_once "lib/board.php";
-require_once "lib/status.php";
+require_once "../lib/dbconnect.php";
+require_once "../lib/board.php";
+require_once "../lib/status.php";
+require_once "../lib/users.php";
 
 /**
  * stores http request method  to local variable
