@@ -1,0 +1,30 @@
+#main_title {
+        
+    text-align: center;
+}
+
+.left_panel {
+width: 25%;
+float: left;
+
+}
+
+.middle_panel {
+width: 50%;
+float: left;
+margin-left: 2%;
+margin-right: 2%;
+}
+
+.right_panel {
+width:21%;
+float: right;
+}
+
+#quarto_table td {
+  width: 10em; 
+  height:10em;
+  text-align:center;
+  background-color: rgb(238, 237, 237);
+}
+
