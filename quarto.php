@@ -1,9 +1,9 @@
 <?php
 
-require_once "../lib/dbconnect.php";
-require_once "../lib/board.php";
-require_once "../lib/status.php";
-require_once "../lib/users.php";
+require_once "lib/dbconnect.php";
+require_once "lib/board.php";
+require_once "lib/status.php";
+require_once "lib/users.php";
 
 /**
  * stores http request method  to local variable
@@ -54,7 +54,7 @@ switch ($r = array_shift($request)) {
 }
 
 /**
- * selects the appropriate board action(function call ) acording http request  
+ * selects the appropriate board action(function call ) according http request  
  * @param string $method can be either GET or POST 
  * @param json $input  body of http request
  * 

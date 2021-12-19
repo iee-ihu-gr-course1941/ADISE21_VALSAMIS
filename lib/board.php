@@ -135,7 +135,7 @@ function do_pick_piece($input)
 
 
 /**
- * flags chosen piece as unvailable
+ * flags chosen piece as unavailable
  * @param int $piece_id contains the id of the piece
  */
 

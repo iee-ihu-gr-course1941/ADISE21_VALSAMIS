@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `game_status`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `game_status` (
-  `status` enum('not active','initialized','started','ended','aborded') NOT NULL DEFAULT 'not active',
+  `status` enum('not active','initialized','started','ended','aborted') NOT NULL DEFAULT 'not active',
   `p_turn` varchar(100) DEFAULT NULL,
   `current_piece` int(11) DEFAULT NULL,
   `result` varchar(1) DEFAULT NULL,

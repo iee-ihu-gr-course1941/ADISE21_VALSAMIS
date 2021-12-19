@@ -48,7 +48,7 @@ function login_to_game() {
 	}
 	draw_empty_board();
 	$.ajax({
-		url: "www/quarto.php/players/login/",
+		url: "quarto.php/players/login/",
 		method: 'PUT',
 		dataType: "json",
 		headers: { "X-Token": me.token },
@@ -110,7 +110,7 @@ function update_info() {
 function game_status_update() {
 	clearTimeout(timer);
 	$.ajax({
-		url: "www/quarto.php/status/",
+		url: "quarto.php/status/",
 		method: 'GET',
 		success: update_status,
 		headers: { "X-Token": me.token }
@@ -124,7 +124,7 @@ function game_status_update() {
 
 function update_user() {
 	$.ajax({
-		url: "www/quarto.php/players/login/",
+		url: "quarto.php/players/login/",
 		method: 'GET',
 		dataType: "json",
 		headers: { "X-Token": me.token },
@@ -259,7 +259,7 @@ function highlight_winning_pieces(win_combination) {
 
 function fill_board() {
 	$.ajax({
-		url: "www/quarto.php/board/",
+		url: "quarto.php/board/",
 		headers: { "X-Token": me.token },
 		success: fill_board_by_data
 	});
@@ -298,7 +298,7 @@ function pick() {
 	var s = $('#piece_selector').val();
 
 	$.ajax({
-		url: "www/quarto.php/board/piece/pick/",
+		url: "quarto.php/board/piece/pick/",
 		method: 'PUT',
 		dataType: "json",
 		contentType: 'application/json',
@@ -344,7 +344,7 @@ function do_place() {
 		return;
 	}
 	$.ajax({
-		url: "www/quarto.php/board/piece/place/",
+		url: "quarto.php/board/piece/place/",
 		method: 'PUT',
 		dataType: "json",
 		contentType: 'application/json',
@@ -383,7 +383,7 @@ function place_error(data) {
 function piece_list() {
 	$.ajax({
 		method: 'GET',
-		url: "www/quarto.php/board/piece/pick",
+		url: "quarto.php/board/piece/pick",
 		contentType: 'application/json',
 		headers: { "X-Token": me.token },
 		success: update_piece_selector
@@ -434,7 +434,7 @@ function update_pieces_remaining_images(list) {
 
 function reset_game() {
 	$.ajax({
-		url: "www/quarto.php/board/",
+		url: "quarto.php/board/",
 		method: "POST",
 		success: (function () { location.reload(); }),
 		headers: { "X-Token": me.token }
