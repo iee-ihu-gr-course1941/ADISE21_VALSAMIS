@@ -37,7 +37,7 @@ function read_status()
  * updates game status table   
  * 
  * checks all possible scenarios and sets the appropriate status 
- * status can be either ( active , initialized , started , ended , aborded )
+ * status can be either ( active , initialized , started , ended , aborted )
  */
 
 function update_game_status()

@@ -1,7 +1,9 @@
 <?php
 
 /**
- * prints all users and their info
+ * prints all users.
+ *
+ * for every user prints their username and token.
  */
 
 function show_users()
@@ -36,7 +38,7 @@ function show_user($token)
 /**
  *  user login
  * @param array $input
- * checks if the user is 1st or 2nd  
+ * checks if user is first to login or second 
  */
 
 function set_user($input)
@@ -62,9 +64,9 @@ function set_user($input)
 }
 
 /**
- * sets specific attributes for 1st user
+ * sets specific characteristics for first user
  * @param string $username
- * sets role to 'pick'
+ * sets role pick
  */
 
 function register_first_player($username)
@@ -87,11 +89,25 @@ function register_first_player($username)
 	show_user($token['token']);
 }
 
+/**
+ * sets player turn in game status table
+ * @param string  $token
+ *  called while there is only the first player 
+ */
+
+function set_current_turn($id)
+{
+	global $mysqli;
+	$sql = 'UPDATE `game_status` SET p_turn=?';
+	$st = $mysqli->prepare($sql);
+	$st->bind_param('i', $id);
+	$st->execute();
+}
 
 /**
- * sets specific attributes for 2nd user
+ * sets specific characteristics for second user
  * @param string  $username
- * sets role to 'place'
+ * sets role place
  */
 
 function register_second_player($username)
@@ -110,21 +126,6 @@ function register_second_player($username)
 	$res = $st->get_result();
 	$token = $res->fetch_assoc();
 	show_user($token['token']);
-}
-
-/**
- * sets player turn in game status table
- * @param string  $token
- *  called while there is only the first player 
- */
-
-function set_current_turn($id)
-{
-	global $mysqli;
-	$sql = 'UPDATE `game_status` SET p_turn=?';
-	$st = $mysqli->prepare($sql);
-	$st->bind_param('i', $id);
-	$st->execute();
 }
 
 /**

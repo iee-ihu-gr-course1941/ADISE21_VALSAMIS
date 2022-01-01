@@ -1,9 +1,9 @@
 <?php
 
 require_once "lib/dbconnect.php";
+require_once "lib/users.php";
 require_once "lib/board.php";
 require_once "lib/status.php";
-require_once "lib/users.php";
 
 /**
  * stores http request method  to local variable
@@ -54,7 +54,7 @@ switch ($r = array_shift($request)) {
 }
 
 /**
- * selects the appropriate board action(function call ) according http request  
+ * selects the appropriate board action(function call ) acording http request  
  * @param string $method can be either GET or POST 
  * @param json $input  body of http request
  * 
@@ -99,7 +99,7 @@ function handle_piece($method, $request, $input)
 }
 
 /**
- * selects the appropriate player action(function call ) according to the http request  
+ * selects the appropriate player action(function call ) acording http request  
  * @param array $request contains the http request path as a table with its level on a cell 
  * @param string $method can be either GET or PUT
  * @param json $input  body of http request

@@ -31,10 +31,10 @@ function read_board()
 /**
  * resets board 
  * calls mysql store procedures  
- * resets all board rows 
- * resets players rows
- * resets piece availability
- * resets game_status
+ * to reset all board rows 
+ * to reset players rows
+ * to reset piece availability
+ * to reset game_status information
  */
 
 function reset_board()
@@ -86,16 +86,16 @@ function get_player_id($token)
 }
 
 /**
- * checks if the player meets all the requirements to pick
+ * checks if player meets all requirements to pick piece
  * @param $input json  
- * and then calls do_pick_piece
+ * calls do_pick_piece
  */
 
 function pick_piece($input)
 {
     if ($input['piece_id'] == "") {
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg' => "piece is not selected."]);
+        print json_encode(['errormesg' => "piece is not set."]);
         exit;
     }
     if ($input['token'] == null) {
@@ -106,7 +106,7 @@ function pick_piece($input)
     $status = read_status();
     if ($status['status'] != 'started') {
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg' => "Game has not started."]);
+        print json_encode(['errormesg' => "Game is not in action."]);
         exit;
     }
     if ($status['p_turn'] != get_player_id($input['token'])) {
@@ -118,9 +118,9 @@ function pick_piece($input)
 }
 
 /**
- * picks the piece for the opponent
+ * picks the piece for other player to place
  * @param int $piece_id contains the id of the piece
- * id [1-16] 
+ * id is [1-16] 
  * calls make_piece_unavailable
  * calls set_current_piece
  */
@@ -135,7 +135,7 @@ function do_pick_piece($input)
 
 
 /**
- * flags chosen piece as unavailable
+ * flags chosen piece unavailable
  * @param int $piece_id contains the id of the piece
  */
 
@@ -149,7 +149,7 @@ function make_piece_unavailable($piece_id)
 }
 
 /**
- * stores in game status table the piece selected for the next player
+ * stores in game status table the piece about to be played for the next player
  * @param int $piece_id contains the id of the piece
  */
 
@@ -177,7 +177,7 @@ function change_role_place($token)
 }
 
 /**
- * checks if player meets all the requirements to place piece
+ * checks if player meets all requirements to place piece
  * @param $input json  
  * and then calls do_place_piece
  */
@@ -192,7 +192,7 @@ function place_piece($input)
     $status = read_status();
     if ($status['status'] != 'started') {
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg' => "Game has not started."]);
+        print json_encode(['errormesg' => "Game is not in action."]);
         exit;
     }
     if ($status['p_turn'] != get_player_id($input['token'])) {
@@ -210,11 +210,11 @@ function place_piece($input)
 }
 
 /**
- * check if the board square is empty
+ * check if board square is empty
  * square can contain either null or piece_id
- * @param int $x horisontal axis
+ * @param int $x horizontal axis
  * @param int $y vertical axis
- * @returns boolean 
+ * @return boolean 
  */
 
 function check_empty_square($x, $y)
@@ -234,9 +234,9 @@ function check_empty_square($x, $y)
 }
 
 /**
- * picks the piece for opponent to place
+ * picks the piece for other player to place
  * @param int $piece_id contains the id of the piece
- * id [1-16] 
+ * id is [1-16] 
  * calls curent_selected_piece
  * calls change_role
  */
@@ -267,19 +267,19 @@ function do_place_piece($input)
 
 /**
  * checks if 16 pieces have been placed on the board and no player has won
- * declares draw
+ * therefore game draw
  * @return boolean if game draw
  */
 
 function check_draw()
 {
     global $mysqli;
-    $sql = 'select count(*) as n from board where piece is not null';
+    $sql = 'select count(*) as p from board where piece is not null';
     $st = $mysqli->prepare($sql);
     $st->execute();
     $res = $st->get_result();
     $count_piece = $res->fetch_assoc();
-    if ($count_piece['n'] == 16) {
+    if ($count_piece['p'] == 16) {
         return true;
     } else {
         return false;
@@ -338,14 +338,14 @@ function next_player($token)
 }
 
 /**
- * checks if the current placement of a piece wins the game
+ * checks if curent placement of a piece wins the game
  * @param string $x    
  * @param string $y
- * if the pieces on a [row/coloum/diagonal]  match one of the arrays included in the $attr_array
+ * if the pieces on a [row/coloum/diagonal]  much one of the arrays included in the $attr_array
  * that means that the piece have at least one common attribute and therefore means that current
  * placement wins the game
  *
- *calls horizontal_pieces , vertical_pieces , check_left_diagonal_pieces , check_right_diagonal_pieces
+ *cals horizontal_pieces , vertical_pieces , check_left_diagonal_pieces , check_right_diagonal_pieces
  */
 
 function check_win($x, $y)
