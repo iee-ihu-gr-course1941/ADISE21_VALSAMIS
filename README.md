@@ -237,5 +237,5 @@ H κατάσταση παιχνιδιού έχει τα παρακάτω στο�
 | `p_turn`                 | To token του παίκτη που παίζει                                | HEX         |
 | `current_piece`          | Δείχνει το επιλέγμενο πιόνι								   | 1...16		 |
 | `result`                 | Καθοριστικό νίκης ή ισοπαλίας                                 |'W','D',null |
-| `win_combination`        | Καθορίζει τον συνδιασμό νίκης πάνω στο board		           |'not set','vertical+y','horizontal+x','left diagonal','right diagonal' (x και y τελευταίες συντεταγμένες τοποθέτησης|
+| `win_combination`        | Καθορίζει τον συνδυασμό νίκης πάνω στο board		           |'not set','vertical+y','horizontal+x','left diagonal','right diagonal' (x και y τελευταίες συντεταγμένες τοποθέτησης|
 | `last_change`            | Τελευταία αλλαγή/ενέργεια στην κατάσταση του παιχνιδιού       | timestamp   |
