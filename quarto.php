@@ -71,10 +71,8 @@ function handle_board($method, $input)
 }
 
 /**
- * selects the appropriate piece action(function call ) acording http request  
  * @param string $method can be either GET or PUT
  * @param json $input  body of http request
- * 
  */
 
 function handle_piece($method, $request, $input)
@@ -99,8 +97,6 @@ function handle_piece($method, $request, $input)
 }
 
 /**
- * selects the appropriate player action(function call ) acording http request  
- * @param array $request contains the http request path as a table with its level on a cell 
  * @param string $method can be either GET or PUT
  * @param json $input  body of http request
  * 

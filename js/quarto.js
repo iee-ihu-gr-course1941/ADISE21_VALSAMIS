@@ -99,7 +99,6 @@ function update_info() {
 		+ me.username + "<strong> id: </strong>"
 		+ me.player_id + "<strong> token: </strong>"
 		+ me.token + "<strong> Player role: </strong> "
-		+ me.role + "<strong> Player last action: </strong> "
 		+ me.last_action + "<br><h4>Game info</h4><strong> Game state: </strong>"
 		+ game_status.status + "<strong> Player turn: </strong>"
 		+ game_status.p_turn + "<strong> Current Piece: </strong>"
@@ -493,66 +492,6 @@ function reset_game() {
 }
 
 
-/**
-*checks mode status
-*and sets the flag  appropriately
-*/
 
-function Check_input_mode() {
-	var mode = $('#mode').val();
-	if (mode == "onclick") {
-		click_mode = true;
-	} else {
-		click_mode = false;
-	}
-}
 
-/**
-*allows click funcionality for placing a piece on the board
-*retrieves id of a clicked board cell and gets coordinates x,y
-*then automatically calls the place function
-*/
-
-function click_place(event) {
-	Check_input_mode();
-	if (me.player_id != game_status.p_turn) { return; }
-	if (me.role == "pick") { return; }
-	if (me.token == null) { return; }
-	if (me.player_id != game_status.p_turn) { return; }
-	$('.quarto_square').css('background-color', 'rgb(238, 237, 237)');
-	var element = event.target;
-	if (element.tagName != 'TD') { element = element.parentNode; }
-	if (element.tagName != 'TD') { return; }
-	var id = element.id;
-	var cordinates = id.split(/_/);
-	$('#piece_coordinates').val(cordinates[1] + ' ' + cordinates[2]).change();
-	var td_id = '#square_' + cordinates[1] + '_' + cordinates[2];
-	$(td_id).css('background-color', '#8A2BE2');
-	if (click_mode) {
-		do_place();
-	}
-}
-
-/**
-*allows click funcionality for picking a piece
-*retrieves id of a clicked piece image and gets the piece id
-*then automatically calls the pick function
-*/
-
-function click_pick(event) {
-	Check_input_mode();
-	if (me.player_id != game_status.p_turn) { return; }
-	if (me.role == "place") { return; }
-	if (me.token == null) { return; }
-	if (me.player_id != game_status.p_turn) { return; }
-	$('.piece_image').css('border', "0px");
-	var element = event.target;
-	if (element.tagName != 'IMG') { return; }
-	var id = element.id;
-	$('#piece_selector').val(id).change();
-	var id1 = '#' + id;
-	$(id1).css('border', "solid 2px purple");
-	if (click_mode) {
-		pick();
-	}
 }

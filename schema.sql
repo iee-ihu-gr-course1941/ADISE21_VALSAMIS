@@ -180,7 +180,7 @@ CREATE TABLE `players` (
   `role` varchar(5) DEFAULT NULL,
   `last_action` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`player_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=605 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
