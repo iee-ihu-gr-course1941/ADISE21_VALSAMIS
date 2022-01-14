@@ -2,7 +2,6 @@ var me = { username: null, player_id: null, token: null, role: null, last_action
 var game_status = { status: null, p_turn: null, current_piece: null, result: null, win_combination: null, last_change: null };
 var last_update = new Date().getTime();
 var timer = null;
-var click_mode = false;
 
 $(function () {
 	draw_empty_board();
@@ -19,7 +18,6 @@ $(function () {
 	$('#start_reset_game').click(reset_game);
 	$('#piece_selected').click(pick);
 	$('#place_piece').click(do_place);
-	$('#piece_images').click(click_pick);
 
 });
 
@@ -39,7 +37,6 @@ function draw_empty_board() {
 	}
 	t += '</table>';
 	$('#quarto_board').html(t);
-	$('.quarto_square').click(click_place);
 }
 
 /**
@@ -163,7 +160,7 @@ function save_player_info(data) {
 function update_status(data) {
 	last_update = new Date().getTime();
 	game_status = data[0];
-	Check_input_mode();
+
 	if (game_status.status == "aborted") {
 		$('#piece_selector_input').hide();
 		$('#piece_coordinates_input').hide();
@@ -200,13 +197,11 @@ function update_status(data) {
 		update_user();
 		update_info();
 		clearTimeout(timer);
-		if (game_status.p_turn == me.player_id && me.role != null) {
+	if (game_status.p_turn == me.player_id && me.role != null) {
 			fill_board();
 			if (me.role == "pick") {
 				$('#piece_selector_input').show(1000);
-				if (click_mode) {
-					$('#text_input_pick').hide(1000);
-				} else { $('#text_input_pick').show(1000); }
+				 $('#text_input_pick').show(1000);
 				$('#piece_coordinates_input').hide(1000);
 				timer = setTimeout(function () { game_status_update(); }, 1000);
 			} else {
@@ -214,9 +209,7 @@ function update_status(data) {
 				current_piece();
 				piece_list();
 				$('#piece_coordinates_input').show(1000);
-				if (click_mode) {
-					$('#text_input_place').hide(1000);
-				} else { $('#text_input_place').show(1000); }
+				 $('#text_input_place').show(1000);
 				$('#remaining_pieces').show(1000);
 				timer = setTimeout(function () { game_status_update(); }, 1000);
 			}
@@ -494,4 +487,3 @@ function reset_game() {
 
 
 
-}
